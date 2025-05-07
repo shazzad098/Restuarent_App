@@ -1,5 +1,6 @@
 
 import { Star } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface RestaurantCardProps {
   name: string;
@@ -8,6 +9,7 @@ interface RestaurantCardProps {
   rating: number;
   reviewCount: number;
   featured?: boolean;
+  location?: string;
 }
 
 const RestaurantCard = ({ 
@@ -16,10 +18,20 @@ const RestaurantCard = ({
   description, 
   rating, 
   reviewCount,
-  featured = false 
+  featured = false,
+  location = "Singapore" 
 }: RestaurantCardProps) => {
+  const navigate = useNavigate();
+  
+  const handleClick = () => {
+    navigate(`/restaurants?location=${encodeURIComponent(location)}`);
+  };
+
   return (
-    <div className={`bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow ${featured ? 'w-full' : 'w-full'}`}>
+    <div 
+      className={`bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow ${featured ? 'w-full' : 'w-full'} cursor-pointer`}
+      onClick={handleClick}
+    >
       <div className="relative">
         <img 
           src={image} 

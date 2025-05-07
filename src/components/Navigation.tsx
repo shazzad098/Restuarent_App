@@ -1,37 +1,69 @@
-
-import { 
-  Utensils, Home, Flag, Building2, Users, Map, Coffee,
-  ShoppingCart, Scan, BatteryFull
-} from "lucide-react";
+import React from 'react';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import { AlignJustify } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useLocation } from "react-router-dom";
 
 const Navigation = () => {
-  const navItems = [
-    { icon: <Utensils className="h-5 w-5" />, label: "Restaurants", active: true },
-    { icon: <Home className="h-5 w-5" />, label: "Hotels" },
-    { icon: <Flag className="h-5 w-5" />, label: "Things to do" },
-    { icon: <Building2 className="h-5 w-5" />, label: "Vacation rentals" },
-    { icon: <Users className="h-5 w-5" />, label: "Shopping" },
-    { icon: <Map className="h-5 w-5" />, label: "Travel & stay" },
-    { icon: <Coffee className="h-5 w-5" />, label: "Cafes" },
-    { icon: <ShoppingCart className="h-5 w-5" />, label: "Delivery" },
-    { icon: <Scan className="h-5 w-5" />, label: "Services" },
-    { icon: <BatteryFull className="h-5 w-5" />, label: "More" },
-  ];
+  const location = useLocation();
+  const isRestaurantPage = location.pathname === '/restaurants';
 
   return (
-    <nav className="w-full bg-white py-2 border-b overflow-x-auto">
-      <div className="flex space-x-4 px-6 max-w-7xl mx-auto">
-        {navItems.map((item, index) => (
-          <div 
-            key={index} 
-            className={`flex flex-col items-center px-2 py-1 text-sm cursor-pointer min-w-[80px] 
-              ${item.active ? 'text-primary' : 'text-gray-500 hover:text-gray-800'}`}
-          >
-            {item.icon}
-            <span className="text-xs mt-1">{item.label}</span>
-            {item.active && <div className="h-0.5 w-full bg-primary mt-1.5"></div>}
-          </div>
-        ))}
+    <nav className="w-full bg-white py-3 px-6 border-b">
+      <div className="flex items-center justify-between max-w-7xl mx-auto">
+        <div className="md:hidden">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="sm">
+                <AlignJustify className="h-4 w-4" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-64">
+              <SheetHeader>
+                <SheetTitle>Menu</SheetTitle>
+                <SheetDescription>
+                  Explore our options
+                </SheetDescription>
+              </SheetHeader>
+              <div className="mt-4">
+                {/* Add navigation links here */}
+                <Button variant="ghost" className="w-full justify-start">Home</Button>
+                <Button variant="ghost" className="w-full justify-start">About</Button>
+                <Button variant="ghost" className="w-full justify-start">Services</Button>
+                <Button variant="ghost" className="w-full justify-start">Contact</Button>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+        <div className="hidden md:flex items-center gap-6">
+          <Button variant="ghost">
+            <span>About</span>
+          </Button>
+          <Button variant="ghost">
+            <span>Services</span>
+          </Button>
+          <Button variant="ghost">
+            <span>Contact</span>
+          </Button>
+        </div>
+        <div>
+          {isRestaurantPage ? (
+            <Button variant="default" size="sm" className="bg-black text-white hover:bg-gray-800">
+              Add Restaurant
+            </Button>
+          ) : (
+            <Button variant="default" size="sm" className="bg-black text-white hover:bg-gray-800">
+              Sign up
+            </Button>
+          )}
+        </div>
       </div>
     </nav>
   );
