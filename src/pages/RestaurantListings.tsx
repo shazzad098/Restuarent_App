@@ -15,9 +15,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Restaurant, getAllRestaurants } from "@/utils/restaurantUtils";
 
-// Combine all restaurant data
-const allRestaurants = [...featuredRestaurants, ...trendingRestaurants, ...coolRestaurants];
+// Get all restaurants using the utility function that already applies proper typing
+const allRestaurants = getAllRestaurants();
 
 const sortOptions = [
   { id: "a-z", label: "Name (A-Z)", icon: <ArrowDownAZ className="h-4 w-4 mr-2" /> },
@@ -30,7 +31,7 @@ const RestaurantListings = () => {
   const [searchParams] = useSearchParams();
   const location = searchParams.get("location") || "Singapore";
   const [sortBy, setSortBy] = useState<string>("a-z");
-  const [sortedRestaurants, setSortedRestaurants] = useState([...allRestaurants]);
+  const [sortedRestaurants, setSortedRestaurants] = useState<Restaurant[]>([...allRestaurants]);
 
   useEffect(() => {
     const sortRestaurants = () => {
@@ -44,7 +45,6 @@ const RestaurantListings = () => {
           sorted.sort((a, b) => b.name.localeCompare(a.name));
           break;
         case "price-low":
-          // Assuming we have price data; if not, this would need to be mocked
           sorted.sort((a, b) => (a.priceLevel || 1) - (b.priceLevel || 1));
           break;
         case "price-high":
