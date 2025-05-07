@@ -1,6 +1,7 @@
 
 import { Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 interface Restaurant {
   id: number;
@@ -17,10 +18,20 @@ interface RestaurantListViewProps {
 }
 
 const RestaurantListView = ({ restaurants }: RestaurantListViewProps) => {
+  const navigate = useNavigate();
+
+  const handleRestaurantClick = (id: number) => {
+    navigate(`/restaurant/${id}`);
+  };
+
   return (
     <div className="space-y-6">
       {restaurants.map((restaurant) => (
-        <div key={restaurant.id} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md">
+        <div 
+          key={restaurant.id} 
+          className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md cursor-pointer"
+          onClick={() => handleRestaurantClick(restaurant.id)}
+        >
           <div className="flex flex-col sm:flex-row">
             <div className="sm:w-1/3">
               <img 

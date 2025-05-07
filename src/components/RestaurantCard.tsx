@@ -3,6 +3,7 @@ import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface RestaurantCardProps {
+  id: number;
   name: string;
   image: string;
   description: string;
@@ -13,6 +14,7 @@ interface RestaurantCardProps {
 }
 
 const RestaurantCard = ({ 
+  id,
   name, 
   image, 
   description, 
@@ -24,7 +26,7 @@ const RestaurantCard = ({
   const navigate = useNavigate();
   
   const handleClick = () => {
-    navigate(`/restaurants?location=${encodeURIComponent(location)}`);
+    navigate(`/restaurant/${id}?location=${encodeURIComponent(location)}`);
   };
 
   return (
