@@ -35,6 +35,7 @@ const FeaturedSlider = ({ restaurants }: FeaturedSliderProps) => {
           {restaurants.slice(currentIndex, currentIndex + 4).map((restaurant) => (
             <div key={restaurant.id} className="flex-shrink-0 w-1/4">
               <RestaurantCard 
+                id={restaurant.id}
                 name={restaurant.name}
                 image={restaurant.image}
                 description={restaurant.description}

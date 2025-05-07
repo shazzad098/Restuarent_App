@@ -22,6 +22,7 @@ const RestaurantGrid = ({ title, restaurants }: RestaurantGridProps) => {
         {restaurants.map((restaurant) => (
           <RestaurantCard
             key={restaurant.id}
+            id={restaurant.id}
             name={restaurant.name}
             image={restaurant.image}
             description={restaurant.description}
